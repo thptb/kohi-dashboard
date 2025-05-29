@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1521kohi POS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Login Modal -->
+<div class="modal" id="login-modal" style="display: block;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>1521kohi POS Login</h3>
+        </div>
+        <div class="modal-body">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Login as:</label>
+                    <select id="user-role" required>
+                        <option value="">Select role</option>
+                        <option value="admin">Admin/Barista</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button id="login-btn" class="btn primary">Login</button>
+        </div>
+    </div>
+</div>
+
+    <div class="container" style="display: none;">
+            <header>
+	    <img src="assets/logo.png" alt="1521kohi Logo" class="logo">
+            <h1>1521kohi Dashboard</h1>
+            <div class="header-actions">
+                <span id="user-display" class="user-display"></span>
+                <button id="logout-btn" class="btn icon-btn"><i class="fas fa-sign-out-alt"></i></button>
+                <button id="toggle-theme" class="btn icon-btn"><i class="fas fa-moon"></i></button>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <button class="nav-btn active" data-page="pos">
+                <i class="fas fa-cash-register"></i> POS System
+            </button>
+            <button class="nav-btn" data-page="menu" id="menu-nav-btn">
+                <i class="fas fa-utensils"></i> Menu Manager
+            </button>
+            <button class="nav-btn" data-page="inventory" id="inventory-nav-btn">
+                <i class="fas fa-boxes"></i> Inventory
+            </button>
+        </nav>
+
+        <div id="pos-page" class="page active">
+
+            <div class="main-content">
+                <div class="order-section">
+                    <div class="customer-info">
+                        <div class="form-group">
+                            <label for="customer-name">Customer Name:</label>
+                            <input type="text" id="customer-name" placeholder="Enter customer name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-type">Service Type:</label>
+                            <select id="service-type" required>
+                                <option value="">Select service type</option>
+                                <option value="Dine-in">Dine-in</option>
+                                <option value="Pick-up">Pick-up</option>
+                                <option value="Delivery">Delivery</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addon-type">Add Ons:</label>
+                            <select id="addon-type" disabled>
+                                <option value="">Select add on</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group datetime">
+                            <div id="current-date"></div>
+                            <div id="current-time"></div>
+                        </div>
+                    </div>
+
+                    <div class="order-details">
+                        <h2>Order Details</h2>
+                        <div class="cart-items" id="cart-items">
+                            <!-- Cart items will be added here -->
+                        </div>
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">₱0.00</span>
+                            </div>
+                            <div class="summary-row delivery-fee">
+                                <span>Delivery Fee:</span>
+                                <span id="delivery-fee">₱0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total:</span>
+                                <span id="total">₱0.00</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="clear-btn" class="btn"><i class="fas fa-trash-alt"></i> Clear</button>
+                            <button id="generate-invoice-btn" class="btn primary" disabled>
+                                <i class="fas fa-file-invoice"></i> Generate Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products-section">
+                    <div class="products-container">
+                        <h2>Products</h2>
+                        <div class="search-box">
+                            <input type="text" id="product-search" placeholder="Search products...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="category-tabs">
+                            <button class="category-tab active" data-category="all">All</button>
+                            <button class="category-tab" data-category="Coffee">Coffee</button>
+                            <button class="category-tab" data-category="Non-Coffee">Non-Coffee</button>
+                            <button class="category-tab" data-category="Juice">Juice</button>
+                            <button class="category-tab" data-category="Snack">Snack</button>
+                            <button class="category-tab" data-category="Mocktail">Mocktail</button>
+                        </div>
+                        <div class="products-grid" id="products-grid">
+                            <!-- Products will be added here -->
+                        </div>
+                    </div>
+
+                    <div class="addons-container" id="addons-container">
+                        <h2>Add Ons</h2>
+                        <div class="addons-grid" id="addons-grid">
+                            <!-- Addons will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-page" class="page">
+            <div class="menu-header">
+                <h2>Menu Manager</h2>
+                <div class="menu-actions">
+                    <button id="add-menu-item" class="btn primary">
+                        <i class="fas fa-plus"></i> Add Item
+                    </button>
+                    <div class="search-box">
+                        <input type="text" id="menu-search" placeholder="Search menu items...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-container">
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Menu items will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="inventory-page" class="page">
+            <div class="inventory-header">
+                <h2>Inventory Management</h2>
+                <div class="inventory-actions">
+                    <button id="add-inventory-item" class="btn primary">
+                        <i class="fas fa-plus"></i> Add Item
+                    </button>
+                </div>
+            </div>
+            
+            <div class="inventory-container">
+                <p>Inventory management coming soon...</p>
+            </div>
+        </div>
+    </div>
+
+<!-- Invoice Modal -->
+<div class="modal" id="invoice-modal">
+    <div class="modal-content">
+        <div class="modal-header"> 
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body" id="invoice-content">
+            <!-- Invoice content will be added here -->
+        </div>
+        <div class="modal-footer">
+            <!-- Buttons will be added here dynamically -->
+        </div>
+    </div>
+</div>
+
+    <!-- Menu Item Modal -->
+    <div class="modal" id="menu-item-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="menu-modal-title">Add New Menu Item</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="menu-item-form">
+                    <div class="form-group">
+                        <label for="menu-item-name">Item Name:</label>
+                        <input type="text" id="menu-item-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="menu-item-category">Category:</label>
+                        <select id="menu-item-category" required>
+                            <option value="Coffee">Coffee</option>
+                            <option value="Non-Coffee">Non-Coffee</option>
+                            <option value="Juice">Juice</option>
+                            <option value="Snack">Snack</option>
+                            <option value="Mocktail">Mocktail</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ingredients:</label>
+                        <div id="ingredients-list">
+                            <!-- Ingredients will be added here -->
+                        </div>
+                        <div class="ingredient-controls">
+                            <input type="text" id="new-ingredient" placeholder="Add ingredient (e.g., 200ml Milk)">
+                            <button type="button" id="add-ingredient" class="btn small">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="save-menu-item" class="btn primary">Save Item</button>
+                <button id="cancel-menu-item" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="scripts.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () { if (typeof init === "function") init(); });</script>
+</body>
+</html>

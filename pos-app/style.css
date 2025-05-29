@@ -1,0 +1,782 @@
+:root {
+    --primary-color: #111376;
+    --background-color: #f3f4f0;
+    --secondary-color: #ffffff;
+    --accent-color: #4CAF50;
+    --danger-color: #f44336;
+    --disabled-opacity: 0.5;
+    --text-color: #333;
+    --border-color: #ddd;
+}
+
+[data-theme="dark"] {
+    --primary-color: #6a7fdb;
+    --background-color: #1a1a1a;
+    --secondary-color: #2d2d2d;
+    --text-color: #f0f0f0;
+    --border-color: #444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Proxima Nova', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+/* Dashboard Navigation */
+.dashboard-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-btn:hover:not(.active) {
+    background-color: #d0d0d0;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Common Components */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    opacity: 0.9;
+}
+
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.btn.small {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+
+.icon-btn {
+    padding: 8px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.search-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+/* POS Page Styles */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+.order-section {
+    flex: 1;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.products-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.products-container, .addons-container {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.customer-info {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.datetime {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.category-tab {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.category-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.products-grid, .addons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f1f1f1;
+}
+
+.products-grid::-webkit-scrollbar, 
+.addons-grid::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.products-grid::-webkit-scrollbar-track,
+.addons-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.products-grid::-webkit-scrollbar-thumb,
+.addons-grid::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+}
+
+.product-item, .addon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+    background-color: var(--background-color);
+}
+
+.product-item:not(.disabled):hover, .addon-item:not(.disabled):hover {
+    background-color: rgba(17, 19, 118, 0.1);
+}
+
+.product-item.disabled, .addon-item.disabled {
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+}
+
+.product-item.selected, .addon-item.selected {
+    background-color: rgba(17, 19, 118, 0.1);
+    border: 1px solid var(--primary-color);
+}
+
+.product-image, .addon-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.product-name, .addon-name {
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 3px;
+    word-break: break-word;
+    width: 100%;
+}
+
+.product-price, .addon-price {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.cart-items {
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-name {
+    font-weight: bold;
+}
+
+.cart-item-addons {
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+}
+
+.cart-item-addons ul {
+    margin: 5px 0 0 15px;
+    padding: 0;
+}
+
+.cart-item-addons li {
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-btn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover {
+    opacity: 0.8;
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+.delete-addon-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+.order-summary {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.delivery-fee {
+    display: none;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* Menu Page Styles */
+.menu-header, .inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.menu-actions, .inventory-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.menu-container, .inventory-container {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.menu-item {
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-3px);
+}
+
+.menu-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.menu-item-actions button {
+    padding: 3px 6px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.edit-menu-item {
+    background-color: #2196F3;
+    color: white;
+}
+
+.delete-menu-item {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.menu-item ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.menu-item li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item li .delete-ingredient {
+    color: var(--danger-color);
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--secondary-color);
+    margin: 2% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    background-color: var(--danger-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center; /* Changed from flex-end to center */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Add specific styles for the invoice modal footer */
+#invoice-modal .modal-footer {
+    flex-direction: row; /* Ensure buttons stay in a row */
+    align-items: center;
+}
+
+/* Menu Item Modal */
+#ingredients-list {
+    margin: 10px 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--background-color);
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.ingredient-item span {
+    flex: 1;
+}
+
+.delete-ingredient-btn {
+    color: var(--danger-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ingredient-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#new-ingredient {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* Invoice styles */
+.invoice {
+    font-family: 'Proxima Nova', sans-serif;
+    color: var(--primary-color);
+    padding: 10px;
+    width: 80mm;
+    font-size: 12px;
+    margin: 0 auto;
+}
+
+.invoice-header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.invoice-logo {
+    height: 40px;
+}
+
+.invoice-details {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.invoice-details h3 {
+    margin-bottom: 5px;
+}
+
+.invoice-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 11px;
+}
+
+.invoice-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 11px;
+}
+
+.invoice-items th {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+.invoice-items td {
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.invoice-totals {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.invoice-subtotal,
+.invoice-delivery,
+.invoice-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.invoice-total {
+    font-weight: bold;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.invoice-footer {
+    text-align: center;
+    /* margin-top: 15px; */
+    font-size: 10px;
+}
+
+.invoice-footer p:first-child {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .products-grid, .addons-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .menu-header, .inventory-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .menu-actions, .inventory-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+}
+/* Login Modal Specific Styles */
+#login-modal .modal-content {
+    max-width: 350px;
+}
+
+.user-display {
+    font-size: 14px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-display i {
+    font-size: 16px;
+}
+
+.user-display.admin {
+    color: #111376;
+}
+
+.user-display.guest {
+    color: #666;
+}
+
+/* Hide elements based on user role */
+.hidden-for-guest {
+    display: none !important;
+}
+
+/* Responsive adjustments for login */
+@media (max-width: 400px) {
+    #login-modal .modal-content {
+        width: 95%;
+    }
+}
